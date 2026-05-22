@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
+const path = require('path');
 
 // Inicializar app
 const app = express();
@@ -16,6 +17,9 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Servir carpeta de uploads
 app.use('/uploads', express.static('uploads'));
+
+// Servir reporte HTML generado (scripts/reporte.html + estilos)
+app.use('/report', express.static(path.join(__dirname, 'scripts')));
 
 // Conectar base de datos (non-blocking)
 let dbConnected = false;
