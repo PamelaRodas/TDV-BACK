@@ -1,0 +1,9 @@
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#fff; color:#222;}
+.container{max-width:1000px;margin:28px auto;padding:16px}
+h1{text-align:center;color:#6a2c70}
+section{margin:20px 0;padding:12px;border-radius:8px}
+.fig{margin:12px 0}
+.dataframe{width:100%;border-collapse:collapse}
+.dataframe th,.dataframe td{border:1px solid #ddd;padding:8px}
+.dataframe th{background:#f7f3f7}
+img{max-width:100%;height:auto;border-radius:6px}

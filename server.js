@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
+const path = require('path');
 
 // Inicializar app
 const app = express();
@@ -16,6 +17,18 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Servir carpeta de uploads
 app.use('/uploads', express.static('uploads'));
+
+// Servir reporte HTML generado (scripts/reporte.html + estilos)
+// Allow embedding the report in an iframe from the frontend dev server.
+app.use('/report', (req, res, next) => {
+  // Override helmet's X-Frame-Options for this route so the frontend can embed the page.
+  res.setHeader('X-Frame-Options', 'ALLOWALL');
+  // Also allow via Content-Security-Policy frame-ancestors for modern browsers (allow all origins).
+  res.setHeader('Content-Security-Policy', "frame-ancestors 'self' http://localhost:5175 http://localhost:5173 http://localhost:5176");
+  // Allow cross-origin resource loading for this static report (so it can be embedded in dev frontend).
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(path.join(__dirname, 'scripts')));
 
 // Conectar base de datos (non-blocking)
 let dbConnected = false;

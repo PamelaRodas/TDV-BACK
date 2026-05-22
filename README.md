@@ -198,6 +198,25 @@ curl -X GET http://localhost:5000/api/diary \
 
 ## 🧪 Testing
 
+## 📊 Análisis Visual y Reporte
+
+Se incluyó un pequeño sistema para generar un `reporte.html` autocontenido con gráficos y tablas a partir de los datos de ejemplo del frontend.
+
+- **Ubicación del script:** `scripts/generate_report.py`
+- **Módulo de visualización:** `scripts/visualizacion.py`
+- **CSS del reporte:** `scripts/estilos.css`
+
+Para generar el reporte (requiere Python 3.8+ y dependencias):
+
+```bash
+cd "TDV BACK/TDV-BACK"
+python -m pip install pandas matplotlib seaborn
+python scripts/generate_report.py
+```
+
+El script producirá `scripts/reporte.html`. Ábrelo en tu navegador para ver gráficos y tablas interactivos (DataTables).
+
+
 ```bash
 npm test
 ```
