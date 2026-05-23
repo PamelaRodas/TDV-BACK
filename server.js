@@ -39,6 +39,7 @@ app.use('/api/growth', require('./routes/growth'));
 app.use('/api/sacred-space', require('./routes/sacredSpace'));
 app.use('/api/studio', require('./routes/studio'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/analytics', require('./routes/analytics'));
 
 // Ruta de prueba
 app.get('/api/health', (req, res) => {

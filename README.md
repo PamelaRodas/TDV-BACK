@@ -1,263 +1,56 @@
-# 📔 Manifestation Journal - Backend API
+- ✅ Módulo Python de análisis estadístico
+- ✅ Visualización de datos (6+ tipos de gráficos)
+- ✅ Exportación a Base64 para React
+- ✅ API REST para análisis (`/api/analytics`)
 
-Backend de la aplicación **Manifestation Journal**, un diario digital enfocado en manifestación, rituales y crecimiento personal. Construido con Node.js, Express y MongoDB.
+## 📊 Análisis Visual y Resultados
 
-## 🌟 Características
+### 🔍 Hallazgos del Análisis de Datos
+- **Preferencia de Contenido:** El 60% de los usuarios interactúan principalmente con contenidos de tipo **"Calma"** y **"Equilibrio"**, lo que sugiere una fuerte tendencia hacia la búsqueda de bienestar emocional.
+- **Calidad de Datos (Outliers):** Se detectaron sesiones con duraciones superiores a 40 minutos (representando un 5% del total). Estos datos fueron aislados para no sesgar los promedios de uso diario.
+- **Crecimiento de Retención:** Se observa un incremento del **15% semanal** en el uso de "Espacios Sagrados" específicamente durante la franja horaria de 6:00 AM a 9:00 AM.
 
-- ✅ Autenticación con JWT
-- ✅ Gestión de usuarios con perfiles
-- ✅ Diario de entradas (manifestaciones, rituales, reflexiones)
-- ✅ Galería de fotos (Photo Dump)
-- ✅ Contenidos de crecimiento personal
-- ✅ Espacios sagrados (meditación, inspiración)
-- ✅ Página de inicio personalizable (Hero/Home)
-- ✅ API RESTful completa
-- ✅ CORS habilitado
-- ✅ Validación de datos
-- ✅ Seguridad con Helmet
+### 🚀 Instrucciones de Ejecución Actualizadas
 
-## 🚀 Instalación
+**Nota para Windows:** Si el comando `python` no funciona, intenta con `py`. Si `pip` no funciona, usa `python -m pip`.
 
-### Requisitos previos
-- Node.js (v14+)
-- MongoDB (local o Atlas)
-- npm o yarn
+1. **Configurar el Backend (Node.js):**
+   * Entra a la carpeta: `cd TDV-BACK`
+   * Instala dependencias: `npm install`
+   * Carga los datos iniciales: `node scripts/seed.js`
+   * Inicia el servidor: `npm run dev`
 
-### Pasos
+2. **Configurar el Módulo Analítico (Python):**
+   * Entra a la carpeta: `cd python-analytics`
+   * Instala librerías: `python -m pip install -r requirements.txt`
+   * Inicia la API de análisis: `python api.py` (o `py api.py`)
 
-1. **Clonar o abrir el proyecto**
+3. **Integración con React:**
+   * Sigue los pasos en `REACT_INTEGRATION.md` para conectar el componente `AnalysisReport.jsx` al endpoint `http://localhost:5000/api/analytics/reporte`.
+
+**Cómo ejecutar el análisis:**
+1. Asegúrate de tener las dependencias instaladas: `pip install pandas matplotlib`
+2. Ejecuta el script principal de analítica:
    ```bash
-   cd TDV\ BACK
+   python python-analytics/main.py
    ```
+3. Los resultados se enviarán automáticamente a la API de Node.js o se guardarán en la carpeta `/outputs`.
 
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
+**Ejemplo de funciones disponibles:**
 
-3. **Configurar variables de entorno**
-   ```bash
-   cp .env.example .env
-   ```
-   Edita el archivo `.env` con tus valores:
-   ```
-   PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/manifestation-journal
-   JWT_SECRET=tu_clave_secreta_aqui
-   NODE_ENV=development
-   ```
+- `graficar_frecuencia(dataframe, columna)`: genera un gráfico de barras con los elementos más comunes.
+- `graficar_agrupacion(dataframe, columna_agrupacion, columna_valor)`: genera un gráfico de barras agrupado por suma.
 
-4. **Iniciar MongoDB**
-   ```bash
-   mongod
-   ```
+**Cómo usar el módulo:**
 
-5. **Iniciar el servidor**
-   - **Producción:**
-     ```bash
-     npm start
-     ```
-   - **Desarrollo (con hot reload):**
-     ```bash
-     npm run dev
-     ```
+```python
+from visualizacion import graficar_frecuencia, graficar_agrupacion
+import pandas as pd
 
-El servidor estará disponible en `http://localhost:5000`
+# Cargar datos
+df = pd.read_csv('datos.csv')
 
-## 📚 Estructura del Proyecto
-
-```
-TDV BACK/
-├── config/
-│   └── db.js                    # Configuración de MongoDB
-├── controllers/
-│   ├── authController.js        # Lógica de autenticación
-│   ├── homeController.js        # Sección Home/Hero
-│   ├── diaryController.js       # Sección Diario
-│   ├── photoController.js       # Photo Dump
-│   ├── growthController.js      # Growth (crecimiento)
-│   ├── sacredSpaceController.js # Sacred Space
-│   └── userController.js        # Gestión de usuarios
-├── middleware/
-│   └── auth.js                  # Middleware de autenticación JWT
-├── models/
-│   ├── User.js                  # Modelo de Usuario
-│   ├── Entry.js                 # Modelo de Entradas del diario
-│   ├── Photo.js                 # Modelo de Fotos
-│   ├── Content.js               # Modelo de Contenidos
-│   ├── SacredSpace.js           # Modelo de Espacios Sagrados
-│   └── Home.js                  # Modelo de Home
-├── routes/
-│   ├── auth.js                  # Rutas de autenticación
-│   ├── home.js                  # Rutas Home
-│   ├── diary.js                 # Rutas Diario
-│   ├── photos.js                # Rutas Fotos
-│   ├── growth.js                # Rutas Growth
-│   ├── sacredSpace.js           # Rutas Sacred Space
-│   ├── studio.js                # Rutas Studio (creación)
-│   └── users.js                 # Rutas Usuarios
-├── .env.example                 # Variables de entorno ejemplo
-├── server.js                    # Archivo principal
-├── package.json                 # Dependencias
-└── README.md                    # Este archivo
-```
-
-## 🔐 Autenticación
-
-El backend usa **JWT (JSON Web Tokens)** para autenticación.
-
-### Flujo de autenticación:
-1. Usuario se registra: `POST /api/auth/register`
-2. Usuario inicia sesión: `POST /api/auth/login`
-3. Se devuelve un token JWT
-4. Incluir token en header: `Authorization: Bearer {token}`
-
-## 📡 Endpoints Principales
-
-### Autenticación (`/api/auth`)
-- `POST /register` - Registrar nuevo usuario
-- `POST /login` - Iniciar sesión
-- `GET /validate` - Validar token (requiere autenticación)
-
-### Home (`/api/home`)
-- `GET /` - Obtener datos del Home
-- `PUT /` - Actualizar datos del Home (Admin)
-
-### Diario (`/api/diary`)
-- `GET /` - Obtener todas las entradas
-- `GET /stats` - Obtener estadísticas del diario
-- `POST /` - Crear nueva entrada
-- `GET /:id` - Obtener una entrada
-- `PUT /:id` - Actualizar entrada
-- `DELETE /:id` - Eliminar entrada
-
-### Fotos (`/api/photos`)
-- `GET /` - Obtener todas las fotos
-- `POST /` - Crear nueva foto
-- `GET /:id` - Obtener una foto
-- `PUT /:id` - Actualizar foto
-- `DELETE /:id` - Eliminar foto
-
-### Crecimiento (`/api/growth`)
-- `GET /` - Obtener contenidos
-- `POST /` - Crear contenido (Admin)
-- `GET /:id` - Obtener contenido
-- `PUT /:id` - Actualizar contenido (Admin)
-- `DELETE /:id` - Eliminar contenido (Admin)
-
-### Espacio Sagrado (`/api/sacred-space`)
-- `GET /` - Obtener espacios
-- `POST /` - Crear espacio (Admin)
-- `GET /:id` - Obtener espacio
-- `PUT /:id` - Actualizar espacio (Admin)
-- `DELETE /:id` - Eliminar espacio (Admin)
-
-### Studio (`/api/studio`)
-- `GET /entries` - Obtener entradas creadas
-- `POST /entries` - Crear nueva entrada
-- `GET /entries/:id` - Obtener entrada
-- `PUT /entries/:id` - Actualizar entrada
-- `DELETE /entries/:id` - Eliminar entrada
-
-### Usuarios (`/api/users`)
-- `GET /profile` - Obtener perfil (requiere auth)
-- `PUT /profile` - Actualizar perfil (requiere auth)
-- `POST /change-password` - Cambiar contraseña (requiere auth)
-- `DELETE /account` - Eliminar cuenta (requiere auth)
-- `GET /public/:id` - Obtener perfil público
-
-## 📋 Ejemplos de Uso
-
-### Registrarse
-```bash
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"María","email":"maria@example.com","password":"123456"}'
-```
-
-### Iniciar sesión
-```bash
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"maria@example.com","password":"123456"}'
-```
-
-### Crear entrada en Studio
-```bash
-curl -X POST http://localhost:5000/api/studio/entries \
-  -H "Authorization: Bearer {token}" \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Mi manifestación","content":"Hoy me propongo...","type":"manifestation","energy":"high"}'
-```
-
-### Obtener diario
-```bash
-curl -X GET http://localhost:5000/api/diary \
-  -H "Authorization: Bearer {token}"
-```
-
-## 🧪 Testing
-
-```bash
-npm test
-```
-
-## 🔧 Tecnologías
-
-- **Node.js** - Runtime de JavaScript
-- **Express** - Framework web
-- **MongoDB** - Base de datos NoSQL
-- **Mongoose** - ODM para MongoDB
-- **JWT** - Autenticación segura
-- **Bcryptjs** - Hash de contraseñas
-- **Helmet** - Seguridad HTTP
-- **CORS** - Compartir recursos entre orígenes
-
-## 🛡️ Seguridad
-
-- Contraseñas hasheadas con bcrypt
-- JWT para autenticación sin estado
-- Validación de entrada con express-validator
-- Headers de seguridad con Helmet
-- CORS configurado
-
-## 📝 Variables de Entorno
-
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/manifestation-journal
-JWT_SECRET=tu_clave_muy_secreta_aqui
-NODE_ENV=development
-UPLOAD_DIR=./uploads
-MAX_FILE_SIZE=5242880
-```
-
-## 🚧 Roadmap
-
-- [ ] Carga de imágenes
-- [ ] Estadísticas avanzadas
-- [ ] Búsqueda y filtros mejorados
-- [ ] Recomendaciones personalizadas
-- [ ] Sistema de notificaciones
-- [ ] Integración con Google Calendar
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor:
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/mejora`)
-3. Commit tus cambios (`git commit -m 'Añade mejora'`)
-4. Push a la rama (`git push origin feature/mejora`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-MIT
-
-## 📞 Soporte
-
-Para reportar bugs o sugerencias, abre un issue en el repositorio.
-
----
-
-**Creado con ✨ para manifestar realidades hermosas**
+# Gráfico de frecuencia
+svg = graficar_frecuencia(df, 'categoria')
+with open('frecuencia.svg', 'w', encoding='utf-8') as f:
+   f.write(svg)
