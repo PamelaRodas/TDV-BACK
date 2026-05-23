@@ -10,12 +10,10 @@ const seedData = async () => {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log('✅ Connected to MongoDB');
 
-    // Limpiar datos existentes
     await Home.deleteMany({});
     await Content.deleteMany({});
     await SacredSpace.deleteMany({});
 
-    // Crear datos iniciales para Home
     const home = new Home({
       title: 'Manifestation Journal',
       subtitle: 'Tu espacio para rituales, intenciones y crecimiento personal',
@@ -25,7 +23,6 @@ const seedData = async () => {
     await home.save();
     console.log('✅ Home data seeded');
 
-    // Crear contenidos de Growth
     const growthContents = [
       {
         title: 'Meditación Matutina',
@@ -76,7 +73,6 @@ const seedData = async () => {
     await Content.insertMany(growthContents);
     console.log('✅ Growth content seeded');
 
-    // Crear espacios sagrados
     const sacredSpaces = [
       {
         title: 'Santuario de Calma',

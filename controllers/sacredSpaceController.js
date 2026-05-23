@@ -1,7 +1,5 @@
-// Obtener todos los espacios sagrados
 exports.getSacredSpaces = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoSpaces = [
         {
@@ -52,10 +50,8 @@ exports.getSacredSpaces = async (req, res) => {
   }
 };
 
-// Obtener un espacio sagrado específico
 exports.getSacredSpace = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -81,7 +77,6 @@ exports.getSacredSpace = async (req, res) => {
   }
 };
 
-// Crear nuevo espacio sagrado (Admin)
 exports.createSacredSpace = async (req, res) => {
   try {
     const { title, description, content, image, ambiance } = req.body;
@@ -90,7 +85,6 @@ exports.createSacredSpace = async (req, res) => {
       return res.status(400).json({ error: 'Title, description, and content are required' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.status(201).json({
         message: 'Sacred space created successfully (DEMO MODE)',
@@ -118,10 +112,8 @@ exports.createSacredSpace = async (req, res) => {
   }
 };
 
-// Actualizar espacio sagrado (Admin)
 exports.updateSacredSpace = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Sacred space updated successfully (DEMO MODE)',
@@ -157,10 +149,8 @@ exports.updateSacredSpace = async (req, res) => {
   }
 };
 
-// Eliminar espacio sagrado (Admin)
 exports.deleteSacredSpace = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Sacred space deleted successfully (DEMO MODE)' });
     }

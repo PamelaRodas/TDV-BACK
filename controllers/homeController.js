@@ -1,7 +1,5 @@
-// Obtener datos del Home/Hero
 exports.getHome = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -32,10 +30,8 @@ exports.getHome = async (req, res) => {
   }
 };
 
-// Actualizar datos del Home (Admin)
 exports.updateHome = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Home updated successfully (DEMO MODE)',

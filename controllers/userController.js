@@ -1,9 +1,7 @@
-// Obtener perfil del usuario
 exports.getUserProfile = async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -33,13 +31,11 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 
-// Actualizar perfil del usuario
 exports.updateUserProfile = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { name, bio, profileImage, preferences } = req.body;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Profile updated successfully (DEMO MODE)',
@@ -79,7 +75,6 @@ exports.updateUserProfile = async (req, res) => {
   }
 };
 
-// Cambiar contraseña
 exports.changePassword = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -89,7 +84,6 @@ exports.changePassword = async (req, res) => {
       return res.status(400).json({ error: 'Current and new passwords are required' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Password changed successfully (DEMO MODE)' });
     }
@@ -101,13 +95,11 @@ exports.changePassword = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Validar contraseña actual
     const isMatch = await user.comparePassword(currentPassword);
     if (!isMatch) {
       return res.status(401).json({ error: 'Current password is incorrect' });
     }
 
-    // Actualizar contraseña
     user.password = newPassword;
     await user.save();
 
@@ -117,12 +109,10 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-// Obtener datos públicos de un usuario
 exports.getPublicUserProfile = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -147,7 +137,6 @@ exports.getPublicUserProfile = async (req, res) => {
   }
 };
 
-// Eliminar cuenta (Admin function)
 exports.deleteAccount = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -157,7 +146,6 @@ exports.deleteAccount = async (req, res) => {
       return res.status(400).json({ error: 'Password required to delete account' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Account deleted successfully (DEMO MODE)' });
     }

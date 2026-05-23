@@ -1,10 +1,8 @@
-// Obtener todas las entradas del usuario
 exports.getEntries = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { page = 1, limit = 10, type, energy } = req.query;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoEntries = [
         {
@@ -66,13 +64,11 @@ exports.getEntries = async (req, res) => {
   }
 };
 
-// Obtener una entrada específica
 exports.getEntry = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -91,7 +87,6 @@ exports.getEntry = async (req, res) => {
       return res.status(404).json({ error: 'Entry not found' });
     }
 
-    // Verificar que sea del usuario o sea pública
     if (entry.userId.toString() !== userId && !entry.isPublic) {
       return res.status(403).json({ error: 'Access denied' });
     }
@@ -102,7 +97,6 @@ exports.getEntry = async (req, res) => {
   }
 };
 
-// Crear nueva entrada
 exports.createEntry = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -112,7 +106,6 @@ exports.createEntry = async (req, res) => {
       return res.status(400).json({ error: 'Title and content are required' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.status(201).json({
         message: 'Entry created successfully (DEMO MODE)',
@@ -152,14 +145,12 @@ exports.createEntry = async (req, res) => {
   }
 };
 
-// Actualizar entrada
 exports.updateEntry = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
     const { title, content, type, energy, tags, images, isPublic } = req.body;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Entry updated successfully (DEMO MODE)',
@@ -197,13 +188,11 @@ exports.updateEntry = async (req, res) => {
   }
 };
 
-// Eliminar entrada
 exports.deleteEntry = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Entry deleted successfully (DEMO MODE)' });
     }
@@ -227,12 +216,10 @@ exports.deleteEntry = async (req, res) => {
   }
 };
 
-// Obtener estadísticas del diario
 exports.getDiaryStats = async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {

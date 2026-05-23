@@ -34,7 +34,7 @@ const contentSchema = new mongoose.Schema(
     },
     duration: {
       type: Number,
-      default: 10, // en minutos
+      default: 10,
     },
     isActive: {
       type: Boolean,

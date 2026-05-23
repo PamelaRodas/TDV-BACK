@@ -1,10 +1,8 @@
-// Obtener todas las fotos del usuario
 exports.getPhotos = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { page = 1, limit = 12, energy } = req.query;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoPhotos = [
         {
@@ -62,13 +60,11 @@ exports.getPhotos = async (req, res) => {
   }
 };
 
-// Obtener una foto específica
 exports.getPhoto = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -97,7 +93,6 @@ exports.getPhoto = async (req, res) => {
   }
 };
 
-// Crear nueva foto
 exports.createPhoto = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -107,7 +102,6 @@ exports.createPhoto = async (req, res) => {
       return res.status(400).json({ error: 'URL is required' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.status(201).json({
         message: 'Photo created successfully (DEMO MODE)',
@@ -147,14 +141,12 @@ exports.createPhoto = async (req, res) => {
   }
 };
 
-// Actualizar foto
 exports.updatePhoto = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
     const { title, description, caption, tags, energy, isPublic } = req.body;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Photo updated successfully (DEMO MODE)',
@@ -191,13 +183,11 @@ exports.updatePhoto = async (req, res) => {
   }
 };
 
-// Eliminar foto
 exports.deletePhoto = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Photo deleted successfully (DEMO MODE)' });
     }

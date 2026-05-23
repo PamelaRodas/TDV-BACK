@@ -1,12 +1,10 @@
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
-// Generar JWT
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-// Registro
 exports.register = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -16,7 +14,6 @@ exports.register = async (req, res) => {
 
     const { name, email, password } = req.body;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoToken = generateToken('demo-user-' + Date.now());
       return res.status(201).json({
@@ -31,7 +28,6 @@ exports.register = async (req, res) => {
       });
     }
 
-    // PRODUCCIÓN: usar Mongoose
     const User = require('../models/User');
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -56,7 +52,6 @@ exports.register = async (req, res) => {
   }
 };
 
-// Login
 exports.login = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -66,7 +61,6 @@ exports.login = async (req, res) => {
 
     const { email, password } = req.body;
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoToken = generateToken('demo-user-' + Date.now());
       return res.json({
@@ -81,7 +75,6 @@ exports.login = async (req, res) => {
       });
     }
 
-    // PRODUCCIÓN: usar Mongoose
     const User = require('../models/User');
     const user = await User.findOne({ email });
     if (!user) {
@@ -109,7 +102,6 @@ exports.login = async (req, res) => {
   }
 };
 
-// Validar token
 exports.validateToken = (req, res) => {
   res.json({
     valid: true,

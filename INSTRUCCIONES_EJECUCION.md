@@ -19,7 +19,8 @@ Asegurar que tienes instalado:
 node --version      # Debe mostrar v14+
 npm --version       # Debe mostrar 6+
 python --version    # Debe mostrar 3.8+
-git --version       # Debe mostrar 2.30+
+
+     # Debe mostrar 2.30+
 ```
 
 ---

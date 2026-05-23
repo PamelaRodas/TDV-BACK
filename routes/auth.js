@@ -5,7 +5,6 @@ const authenticateToken = require('../middleware/auth');
 
 const router = express.Router();
 
-// Registro
 router.post(
   '/register',
   [
@@ -16,7 +15,6 @@ router.post(
   authController.register
 );
 
-// Login
 router.post(
   '/login',
   [
@@ -26,7 +24,6 @@ router.post(
   authController.login
 );
 
-// Validar token
 router.get('/validate', authenticateToken, authController.validateToken);
 
 module.exports = router;

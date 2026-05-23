@@ -1,14 +1,10 @@
-// Middleware para DEMO MODE - Intercept Mongoose errors
 const demoModeHandler = (err, req, res, next) => {
   if (process.env.DEMO_MODE !== 'true') {
-    return next(err); // Pasar al siguiente error handler
   }
 
-  // En DEMO MODE, devolver datos ficticios
   if (err.message && err.message.includes('buffering timed out')) {
     console.warn('⚠️ Database timeout - returning demo data');
 
-    // Detectar qué endpoint es y devolver datos apropiados
     if (req.path.includes('/home')) {
       return res.json({
         data: {

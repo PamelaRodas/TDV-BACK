@@ -1,7 +1,5 @@
-// Obtener todos los contenidos de Growth
 exports.getGrowthContent = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       const demoContent = [
         {
@@ -57,10 +55,8 @@ exports.getGrowthContent = async (req, res) => {
   }
 };
 
-// Obtener un contenido específico
 exports.getGrowthItem = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         data: {
@@ -86,7 +82,6 @@ exports.getGrowthItem = async (req, res) => {
   }
 };
 
-// Crear nuevo contenido (Admin)
 exports.createGrowthContent = async (req, res) => {
   try {
     const { title, description, category, content, image, author, difficulty, duration } = req.body;
@@ -95,7 +90,6 @@ exports.createGrowthContent = async (req, res) => {
       return res.status(400).json({ error: 'Title, description, and content are required' });
     }
 
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.status(201).json({
         message: 'Growth content created successfully (DEMO MODE)',
@@ -126,10 +120,8 @@ exports.createGrowthContent = async (req, res) => {
   }
 };
 
-// Actualizar contenido (Admin)
 exports.updateGrowthContent = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({
         message: 'Growth content updated successfully (DEMO MODE)',
@@ -168,10 +160,8 @@ exports.updateGrowthContent = async (req, res) => {
   }
 };
 
-// Eliminar contenido (Admin)
 exports.deleteGrowthContent = async (req, res) => {
   try {
-    // DEMO MODE
     if (process.env.DEMO_MODE === 'true') {
       return res.json({ message: 'Growth content deleted successfully (DEMO MODE)' });
     }

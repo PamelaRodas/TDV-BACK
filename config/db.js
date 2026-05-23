@@ -16,7 +16,6 @@ const connectDB = async () => {
     console.warn(`   Message: ${error.message}`);
     console.warn('💡 To use database: Install MongoDB locally OR configure MongoDB Atlas');
     console.warn('📝 See SETUP.md for configuration instructions');
-    // Server continues without database
     return null;
   }
 };

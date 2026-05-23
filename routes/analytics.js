@@ -7,7 +7,6 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-// URL de la API Python (ajustar según ambiente)
 const PYTHON_API_URL = process.env.PYTHON_API_URL || 'http://localhost:8000';
 
 /**
@@ -24,7 +23,6 @@ router.post('/analizar', async (req, res) => {
       });
     }
 
-    // Llamar a la API Python
     const response = await axios.post(`${PYTHON_API_URL}/analizar`, {
       registros,
     });

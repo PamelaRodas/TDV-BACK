@@ -5,8 +5,6 @@ module.exports = {
       'http://localhost:3001',
       'http://127.0.0.1:3000',
       'http://127.0.0.1:3001',
-      // Agregar URLs de producción aquí
-      // 'https://tudominio.com'
     ],
     credentials: true,
   },
@@ -16,7 +14,7 @@ module.exports = {
   },
 
   upload: {
-    maxFileSize: process.env.MAX_FILE_SIZE || 5242880, // 5MB
+    maxFileSize: process.env.MAX_FILE_SIZE || 5242880,
     allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   },
 
