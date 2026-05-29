@@ -24,3 +24,15 @@ temp/
 *.pid
 *.seed
 *.pid.lock
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/

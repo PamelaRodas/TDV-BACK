@@ -177,7 +177,7 @@ class GeneradorReportes:
         else:
             df = pd.DataFrame(datos)
         
-        reporte = self.procesar_datos_para_frontend(datos=df.to_dict('records'))
+        reporte = self.procesar_datos_para_frontend(datos_json=df.to_dict('records'))
         
         respuesta_api = {
             'success': True,
@@ -216,7 +216,7 @@ class GeneradorReportes:
         else:
             df = pd.DataFrame(datos)
         
-        reporte = self.procesar_datos_para_frontend(datos=df.to_dict('records'))
+        reporte = self.procesar_datos_para_frontend(datos_json=df.to_dict('records'))
         
         html_content = f"""
         <!DOCTYPE html>

@@ -63,16 +63,16 @@ class AnalizadorDatos:
         if llenar_nulos:
             # Para columnas numéricas, usar la media
             for col in df_limpio.select_dtypes(include=[np.number]).columns:
-                df_limpio[col].fillna(df_limpio[col].mean(), inplace=True)
+                df_limpio[col] = df_limpio[col].fillna(df_limpio[col].mean())
             
             # Para columnas categóricas, usar el modo o 'Sin especificar'
             for col in df_limpio.select_dtypes(include=['object']).columns:
                 if df_limpio[col].isna().any():
                     moda = df_limpio[col].mode()
                     if not moda.empty:
-                        df_limpio[col].fillna(moda[0], inplace=True)
+                        df_limpio[col] = df_limpio[col].fillna(moda[0])
                     else:
-                        df_limpio[col].fillna('Sin especificar', inplace=True)
+                        df_limpio[col] = df_limpio[col].fillna('Sin especificar')
         
         self.estadisticas['limpieza'] = {
             'registros_iniciales': registros_iniciales,

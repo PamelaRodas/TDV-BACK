@@ -125,7 +125,7 @@ def ejemplo_3_reporte_completo(df):
     
     # Procesar datos para frontend
     print("\n🔄 Procesando datos para frontend...")
-    reporte = generador.procesar_datos_para_frontend(datos=df.to_dict('records'))
+    reporte = generador.procesar_datos_para_frontend(datos_json=df.to_dict('records'))
     
     print(f"\n📋 Información del Reporte:")
     print(f"   ID: {reporte['id']}")
